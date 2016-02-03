@@ -1,0 +1,45 @@
+/**
+ * @author Ján Kertis <kertis.jan.15@gmail.com>
+ * @copyright Ján Kertis, 2016
+ */
+
+.form {
+    margin-top: 50px;
+    width: 78%;
+    margin-left: 10%;
+    position: relative;
+}
+
+.formGroup {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.formGroup label {
+    width: 100%;
+    display: block;
+    padding-left: 5%;
+    color: #fff;
+    font-size: 34px;
+    margin-bottom: 5px;
+}
+
+.formGroup input {
+    display: inline-block;
+    height: 37px;
+    width: 100%;
+    font-size: 16px;
+    border: 0;
+    padding-left: 10px;
+    color: #73AA69;
+}
+
+.form button {
+    margin-top: 20px;
+}
+
+.formStatus {
+    display: block;
+    margin-top: 20px;
+    color: #fff;
+}

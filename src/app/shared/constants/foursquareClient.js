@@ -1,0 +1,7 @@
+/**
+ * @author Ján Kertis <kertis.jan.15@gmail.com>
+ * @copyright Ján Kertis, 2016
+ */
+
+export const CLIENT_ID = "4RP4EHITKNK1MXMAXNSW3BO5CR1MUUT4OCTJXUWOHRHJ1ZZD";
+export const CLIENT_SECRET = "HIMXHTCV3A5AKAOOJXMTP5P5OYTDEVDC1PUJ3DM2N0TIRTPD";

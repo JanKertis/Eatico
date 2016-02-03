@@ -1,0 +1,61 @@
+/**
+ * @author Ján Kertis <kertis.jan.15@gmail.com>
+ * @copyright Ján Kertis, 2016
+ */
+
+.resultRow {
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.resultRow:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+.resultRow:hover {
+    background-color: #F9F8ED;
+}
+
+.resultVotes {
+    margin: 15px;
+    width: 30px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #73AA69;
+    color: #fff;
+    float: left;
+    text-align: center;
+    line-height: 40px;
+}
+
+.resultInfo {
+    margin-top: 11px;
+    vertical-align: middle;
+    padding-left: 10px;
+    float: left;
+}
+
+.resultPlace {
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    max-width: 320px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.resultStreet {
+    max-width: 320px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    font-size: 14px;
+}

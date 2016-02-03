@@ -1,0 +1,20 @@
+/**
+ * @author Ján Kertis <kertis.jan.15@gmail.com>
+ * @copyright Ján Kertis, 2016
+ */
+
+.button {
+    color: #fff;
+    border: 0;
+    padding: 0;
+    background-color: #73AA69;
+    border-radius: 5px;
+    width: 125px;
+    height: 40px;
+    font-size: 16px;
+    display: inline-block;
+}
+
+.button:hover {
+    background-color: #66985d;
+}

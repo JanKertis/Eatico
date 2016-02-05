@@ -8,6 +8,7 @@
     width: 78%;
     margin-left: 10%;
     position: relative;
+    overflow: hidden;
 }
 
 .formGroup {
@@ -26,7 +27,7 @@
 
 .formGroup input {
     display: inline-block;
-    height: 37px;
+    height: 38px;
     width: 100%;
     font-size: 16px;
     border: 0;
@@ -42,4 +43,12 @@
     display: block;
     margin-top: 20px;
     color: #fff;
+}
+
+.Select {
+    width: 100%;
+}
+
+.Select > .Select-control {
+    width: 100%;
 }

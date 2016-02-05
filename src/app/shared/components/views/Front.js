@@ -21,6 +21,7 @@ class Front extends Component {
     }
 
     componentDidMount() {
+        this.props.searchItems('');
         this.clickHandler = this.clickHandler.bind(this);
         window.addEventListener('mousedown', this.clickHandler, false);
     }
@@ -67,6 +68,7 @@ class Front extends Component {
                 <div className={ classNames(styles.results, this.state.active ? null : styles.hide) }>
                     <div className={ styles.resultsBlock }>
                         <Button onclick={ this.toggleNav.bind(this) } styles={ styles.addButton }>Pridať</Button>
+                        { this.props.isLoading && <span>Nacitavam...</span> }
                         <ResultBlock />
                     </div>
                 </div>
@@ -76,7 +78,11 @@ class Front extends Component {
 }
 
 export default connect(
-    undefined,
+    (state) => {
+        return {
+            isLoading: state.front.get('isLoading')
+        };
+    },
     (dispatch) => {
         return bindActionCreators({ searchItems }, dispatch);
     }

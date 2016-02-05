@@ -59,3 +59,8 @@
     display: block;
     font-size: 14px;
 }
+
+.noResultText {
+    display: block;
+    margin-top: 25px;
+}

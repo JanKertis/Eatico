@@ -5,38 +5,28 @@
 
 import React, { Component, PropTypes } from 'react';
 import styles from './AddPlaceForm.css';
+import ReactSelectStyles from './ReactSelect.less';
 import { Button } from './../uikit';
-import { addPlace } from './../../actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { searchVenues } from './../../actions';
-import { InputDropDown } from './../uikit';
+import { searchVenues, searchFood, addPlace } from './../../actions';
+import Select from 'react-select';
 
 class AddPlaceForm extends Component {
     constructor(props) {
         super(props);
-        this.state = { show: false, error: false };
-    }
-
-    componentDidMount() {
-        this.clickHandler = this.clickHandler.bind(this);
-        window.addEventListener('click', this.clickHandler, true);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('click', this.clickHandler, true);
-    }
-
-    clickHandler(e) {
-        if (!this._placeGroup.contains(e.target)) {
-            this.setState({ show: false });
-        }
+        this.state = {
+            selectedFood: '',
+            selectedVenue: '',
+            selectedAddress: '',
+            error: false
+        };
     }
 
     validate(e) {
         e.preventDefault();
 
-        if (!this._item.value || !this._place.value || !this._address.value) {
+        if (!this.state.selectedFood || !this.state.selectedVenue || !this.state.selectedAddress) {
             this.setState({ error: true });
         } else {
             this.setState({ error: false });
@@ -45,60 +35,110 @@ class AddPlaceForm extends Component {
     }
 
     resetForm() {
-        this._item.value = '';
-        this._place.value = '';
-        this._address.value = '';
+        this.state.selectedFood = '';
+        this.state.selectedVenue = '';
+        this.state.selectedAddress = '';
     }
 
-    fillData(result) {
-        this._place.value = result.get('name');
-        this._address.value = result.get('location').get('address');
+    fillPlace(place) {
+        this._place.value = place.get('name');
+        this._address.value = place.get('location').get('address');
 
-        this.setState({ show: false });
+        this.setState({ showPlaces: false });
     }
 
-    findVenues(e) {
-        this.props.searchVenues(e.target.value);
+    fillFood(food) {
+        this._item.value = food.get('item');
+
+        this.setState({ showFood: false });
     }
 
     handleSubmit(e) {
         const data = {
-            item: this._item.value,
-            place: this._place.value,
-            address: this._address.value
+            item: this.state.selectedFood,
+            place: this.state.selectedVenue,
+            address: this.state.selectedAddress
         };
+        this.props.addPlace(data);
         this.resetForm();
+    }
 
-        console.log(data);
+
+    onFoodChange(value) {
+        this.setState({ selectedFood: value });
+    }
+
+    onVenueChange(value) {
+        this.setState({ selectedVenue: value, selectedAddress: value.address });
+    }
+
+    handleAddress(e) {
+        this.setState({ selectedAddress: e.target.value });
     }
 
     render() {
+        const getFoodOptions = (input, callback) => {
+            const options = [];
+            this.props.searchFood(input);
+
+            this.props.food.toArray().map((food, i) => {
+                options.push({ value: food.get('slug'), label: food.get('item') });
+            });
+
+            var data = {
+                options: options
+            };
+
+            callback(null, data);
+        };
+
+        const getVenuesOptions = (input, callback) => {
+            const options = [];
+            this.props.searchVenues(input);
+
+            this.props.venues.toArray().map((venue, i) => {
+                options.push({ value: `${i}`+venue.get('name'), label: venue.get('name'), address: venue.get('location').get('address') });
+            });
+
+            var data = {
+                options: options
+            };
+
+
+            callback(null, data);
+        };
+
         return (
             <form className={ styles.form } onSubmit={ this.validate.bind(this) } autoComplete="off">
-                <div className={ styles.formGroup }>
+                <div className={ styles.formGroup } ref={ (fg) => this._foodGroup = fg }>
                     <label htmlFor="item">TOP</label>
-                    <input name="item" type="text" ref={ (item) => this._item = item } />
+                    <Select.Async
+                        name="item-select"
+                        valueKey="label"
+                        labelKey="label"
+                        value={ this.state.selectedFood }
+                        placeholder="pečená kačka"
+                        clearable={ false }
+                        loadOptions={ getFoodOptions }
+                        onChange={ this.onFoodChange.bind(this) }
+                    />
                 </div>
                 <div className={ styles.formGroup } ref={ (pg) => this._placeGroup = pg }>
                     <label htmlFor="place">je v podniku</label>
-                    <input name="place" type="text"
-                           onChange={ this.findVenues.bind(this) }
-                           onFocus={ (e) => this.setState({ show: true }) }
-                           ref={ (place) => this._place = place } />
-
-                    { this.state.show &&
-                        <InputDropDown>
-                            { this.props.venues && this.props.venues.toArray().map((result, i) => {
-                                return (
-                                    <li onClick={ this.fillData.bind(this, result) } key={i}>{ result.get('name') }</li>
-                                );
-                            })}
-                        </InputDropDown>
-                    }
+                    <Select.Async
+                        name="place-select"
+                        valueKey="label"
+                        labelKey="label"
+                        value={ this.state.selectedVenue }
+                        placeholder="Čierny bača"
+                        clearable={ false }
+                        loadOptions={ getVenuesOptions }
+                        onChange={ this.onVenueChange.bind(this) }
+                    />
                 </div>
                 <div className={ styles.formGroup }>
                     <label htmlFor="address">na adrese</label>
-                    <input name="address" type="text" ref={ (address) => this._address = address } />
+                    <input name="address" type="text" placeholder="Mierova 3" value={ this.state.selectedAddress } onChange={ this.handleAddress.bind(this) } />
                 </div>
 
                 <Button type="submit" onClick={ this.validate.bind(this) } styles={ styles.button }>Pridať</Button>
@@ -110,16 +150,18 @@ class AddPlaceForm extends Component {
 }
 
 AddPlaceForm.propTypes = {
-    venues: PropTypes.object
+    venues: PropTypes.object,
+    foods: PropTypes.object
 };
 
 export default connect(
     (state) => {
         return {
-            venues: state.front.get('venues')
+            venues: state.front.get('venues'),
+            food: state.front.get('food')
         };
     },
     (dispatch) => {
-        return bindActionCreators({ searchVenues }, dispatch);
+        return bindActionCreators({ searchVenues, searchFood, addPlace }, dispatch);
     }
 )(AddPlaceForm);

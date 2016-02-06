@@ -109,6 +109,8 @@ class AddPlaceForm extends Component {
                         labelKey="label"
                         value={ this.state.selectedFood }
                         placeholder="pečená kačka"
+                        noResultsText="Žiadne výsledky"
+                        searchingText="Hľadám"
                         clearable={ false }
                         loadOptions={ getFoodOptions }
                         onChange={ this.onFoodChange.bind(this) }
@@ -122,6 +124,8 @@ class AddPlaceForm extends Component {
                         labelKey="label"
                         value={ this.state.selectedVenue }
                         placeholder="Čierny bača"
+                        noResultsText="Žiadne výsledky"
+                        searchingText="Hľadám"
                         clearable={ false }
                         loadOptions={ getVenuesOptions }
                         onChange={ this.onVenueChange.bind(this) }

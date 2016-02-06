@@ -41,8 +41,8 @@ export default function front(state = Map({ isLoading: false, results: OrderedMa
                 newState
                     .set('isLoading', false)
                     .set('item', fromJS(action.item))
-                    .set('results', Map(response.map((val) => [val.id, fromJS(val)])))
-                    .updateIn(['results'], (s) => s.sortBy((p) => p.get(action.item)).reverse());
+                    .setIn(['results', action.item], Map(response.map((val) => [val.id, fromJS(val)])))
+                    .updateIn(['results', action.item], (s) => s.sortBy((p) => p.get(action.item)).reverse());
             });
         case SEARCH_ITEMS_FAILURE:
             return state.set('isLoading', false).set('error', action.error);
@@ -64,11 +64,12 @@ export default function front(state = Map({ isLoading: false, results: OrderedMa
             return state.set('isLoading', true);
         case ADD_PLACE_SUCCESS:
             const place = action.result.body.place;
+            const item = action.result.body.item;
             return state.withMutations((newState) => {
                 newState
                     .set('isLoading', false)
-                    .setIn(['results', place.id],  Map(fromJS(place)))
-                    .updateIn(['results'], (s) => s.sortBy((p) => p.get(action.result.body.item)).reverse());
+                    .setIn(['results', item, place.id],  Map(fromJS(place)))
+                    .updateIn(['results', item], (s) => s.sortBy((p) => p.get(item)).reverse());
             });
         case ADD_PLACE_FAILURE:
             return state.set('isLoading', false).set('error', action.error);

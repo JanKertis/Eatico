@@ -40,25 +40,13 @@ class AddPlaceForm extends Component {
         this.state.selectedAddress = '';
     }
 
-    fillPlace(place) {
-        this._place.value = place.get('name');
-        this._address.value = place.get('location').get('address');
-
-        this.setState({ showPlaces: false });
-    }
-
-    fillFood(food) {
-        this._item.value = food.get('item');
-
-        this.setState({ showFood: false });
-    }
-
     handleSubmit(e) {
         const data = {
-            item: this.state.selectedFood,
-            place: this.state.selectedVenue,
+            item: this.state.selectedFood.label,
+            place: this.state.selectedVenue.label,
             address: this.state.selectedAddress
         };
+
         this.props.addPlace(data);
         this.resetForm();
     }
@@ -82,14 +70,16 @@ class AddPlaceForm extends Component {
             this.props.searchFood(input);
 
             this.props.food.toArray().map((food, i) => {
-                options.push({ value: food.get('slug'), label: food.get('item') });
+                options.push({ value: `${i}`+food.get('slug'), label: food.get('item') });
             });
 
             var data = {
                 options: options
             };
 
-            callback(null, data);
+            setTimeout(() => {
+                callback(null, data);
+            }, 300);
         };
 
         const getVenuesOptions = (input, callback) => {
@@ -104,8 +94,9 @@ class AddPlaceForm extends Component {
                 options: options
             };
 
-
-            callback(null, data);
+            setTimeout(() => {
+                callback(null, data);
+            }, 300)
         };
 
         return (
@@ -114,7 +105,7 @@ class AddPlaceForm extends Component {
                     <label htmlFor="item">TOP</label>
                     <Select.Async
                         name="item-select"
-                        valueKey="label"
+                        valueKey="value"
                         labelKey="label"
                         value={ this.state.selectedFood }
                         placeholder="pečená kačka"
@@ -127,7 +118,7 @@ class AddPlaceForm extends Component {
                     <label htmlFor="place">je v podniku</label>
                     <Select.Async
                         name="place-select"
-                        valueKey="label"
+                        valueKey="value"
                         labelKey="label"
                         value={ this.state.selectedVenue }
                         placeholder="Čierny bača"

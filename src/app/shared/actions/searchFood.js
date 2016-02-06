@@ -24,7 +24,7 @@ export default function searchFood(item) {
 
             resolve({
                 body: {
-                    food, item
+                    food, item: slugify(item)
                 }
             })
         })

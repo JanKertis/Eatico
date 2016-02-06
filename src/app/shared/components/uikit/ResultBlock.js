@@ -11,8 +11,8 @@ export default class ResultsBlock extends React.Component {
     render() {
         return (
             <div>
-                {this.props.results.toArray().map((result, i) => {
-                    return (
+                { this.props.results && this.props.results.toArray().map((result, i) => {
+                     return (
                         <div className={styles.resultRow} key={ i }>
                             <span className={styles.resultVotes}>{ result.get(this.props.item) }</span>
                             <div className={styles.resultInfo}>
@@ -22,7 +22,7 @@ export default class ResultsBlock extends React.Component {
                         </div>
                     );
                 })}
-                { this.props.results.size === 0 &&
+                { this.props.results && this.props.results.size === 0 &&
                     <span className={ styles.noResultText }>Žiadne výsledky</span>
                 }
             </div>
@@ -33,7 +33,7 @@ export default class ResultsBlock extends React.Component {
 export default connect(
     (state) => {
         return {
-            results: state.front.get('results'),
+            results: state.front.getIn(['results', state.front.get('item')]),
             item: state.front.get('item')
         };
     }

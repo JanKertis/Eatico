@@ -18,7 +18,7 @@
 }
 
 .activeWrapper {
-    margin-top: -75vh;
+    margin-top: calc(200px - 100vh);
 }
 
 .finderBlock {
@@ -75,6 +75,8 @@
     display: inline-block;
     text-align: left;
     position: relative;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .addButton {
@@ -91,10 +93,42 @@
     display: none;
 }
 
+@media(max-width: 1000px) {
+    .activeWrapper {
+        margin-top: calc(220px - 100vh);
+    }
+    .finderBlock {
+        top: calc(50vh - 60px);
+    }
+    .activeBlock {
+        top: calc(100vh - 170px);
+    }
+    .finderText:last-of-type {
+        display: block;
+    }
+}
+
+@media(max-width: 600px) {
+    .activeWrapper {
+        margin-top: calc(300px - 100vh);
+    }
+    .finderBlock {
+        top: calc(50vh - 95px);
+    }
+    .activeBlock {
+        top: calc(100vh - 250px);
+    }
+    .finderText {
+        display: block;
+    }
+}
+
 @media(max-width: 768px) {
     .addButton {
+        width: 400px;
+        max-width: 100%;
         position: static;
-        margin: 15px;
+        margin: 0;
     }
     .results {
         margin-left: 0;

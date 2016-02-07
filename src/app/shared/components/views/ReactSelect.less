@@ -1,0 +1,35 @@
+@import '../../../../../node_modules/react-select/less/select.less';
+
+@select-input-border-radius: 0;
+@select-item-border-radius: 0;
+@select-input-height: 50px;
+@select-text-color: #73AA69;
+@select-noresults-color: #aaa;
+@select-option-focused-bg: #f9f9f9;
+
+.Front.Select {
+  position: relative;
+  height: 53px;
+  text-align: left;
+  width: 240px;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 10px 10px;
+  z-index: 999;
+}
+
+.Front.Select .Select-control {
+  border-bottom: 3px solid #ccc;
+}
+
+.Front.Select.is-focused .Select-control {
+  border-bottom: 3px solid #73AA69;
+}
+
+.Front.Select .Select-menu-outer {
+  z-index: 999;
+}
+
+.Front.Select-clear {
+  vertical-align: middle;
+}

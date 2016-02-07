@@ -14,7 +14,6 @@
     transition: all 0.5s ease;
     position: relative;
     box-shadow: 0 3px 21px 0 rgba(0,0,0,0.5);
-    overflow: hidden;
 }
 
 .activeWrapper {
@@ -33,7 +32,6 @@
 }
 
 .activeBlock {
-    transform: scale(1.2);
     top: calc(100vh - 100px);
 }
 
@@ -45,23 +43,8 @@
     vertical-align: middle;
 }
 
-.inputFinder {
-    margin: 10px 10px;
-    border: 0;
-    height: 24px;
-    width: 200px;
-    color: #73AA69;
-    padding: 10px;
-    vertical-align: middle;
-    font-size: 20px;
-    border-bottom: 3px solid #ccc;
-}
-
-.inputFinder:focus {
-    border-bottom: 3px solid #73AA69;
-}
-
 .results {
+    position: relative;
     color: #000;
     text-align: center;
     margin-top: 60px;
@@ -125,10 +108,9 @@
 
 @media(max-width: 768px) {
     .addButton {
-        width: 400px;
-        max-width: 100%;
         position: static;
-        margin: 0;
+        margin-left: 15px;
+        margin-bottom: 15px;
     }
     .results {
         margin-left: 0;

@@ -3,20 +3,23 @@
  * @copyright Ján Kertis, 2016
  */
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import styles from './Front.css';
 import { Button, ResultBlock, RightNav } from './../uikit';
 import classNames from 'classnames';
-import { searchItems } from './../../actions';
+import { searchItems, searchFood } from './../../actions';
+import ReactSelectStyles from './ReactSelect.less';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Select from 'react-select';
 
 class Front extends Component {
     constructor(props) {
         super(props);
         this.state = {
             active: false,
-            showNav: false
+            showNav: false,
+            selectedFood: ''
         }
     }
 
@@ -50,7 +53,30 @@ class Front extends Component {
         this.setState({ showNav: !this.state.showNav });
     }
 
+    onFoodChange(value) {
+        this.props.searchItems(value.label);
+        this.setState({ active: true });
+        this.setState({ selectedFood: value });
+    }
+
     render() {
+        const getFoodOptions = (input, callback) => {
+            const options = [];
+            this.props.searchFood(input);
+
+            this.props.food.toArray().map((food, i) => {
+                options.push({ value: `${i}`+food.get('slug'), label: food.get('item') });
+            });
+
+            var data = {
+                options: options
+            };
+
+            setTimeout(() => {
+                callback(null, data);
+            }, 300);
+        };
+
         return (
             <div className={ styles.appBody }>
                 <div ref={ (nav) => this._nav = nav }>
@@ -60,7 +86,19 @@ class Front extends Component {
                     <div className={ styles.textCenter }>
                         <div className={ classNames(styles.finderBlock, this.state.active ? styles.activeBlock : null) }>
                             <span className={ styles.finderText }>Kde je top</span>
-                            <input className={ styles.inputFinder } type="text" placeholder="pecena kacka" onChange={ this.inputHandler.bind(this) } />
+                            <Select.Async
+                                className="Front"
+                                name="item-select"
+                                valueKey="value"
+                                labelKey="label"
+                                value={ this.state.selectedFood }
+                                placeholder="pečená kačka"
+                                noResultsText="Žiadne výsledky"
+                                searchingText="Hľadám"
+                                clearable={ false }
+                                loadOptions={ getFoodOptions }
+                                onChange={ this.onFoodChange.bind(this) }
+                            />
                             <span className={ styles.finderText }>v Bratislave</span>
                         </div>
                     </div>
@@ -77,13 +115,21 @@ class Front extends Component {
     }
 }
 
+Front.propTypes = {
+    searchItems: PropTypes.func.isRequired,
+    searchFood: PropTypes.func.isRequired,
+    food: PropTypes.object,
+    isLoading: PropTypes.bool
+};
+
 export default connect(
     (state) => {
         return {
+            food: state.front.get('food'),
             isLoading: state.front.get('isLoading')
         };
     },
     (dispatch) => {
-        return bindActionCreators({ searchItems }, dispatch);
+        return bindActionCreators({ searchItems, searchFood }, dispatch);
     }
 )(Front);

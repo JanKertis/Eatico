@@ -31,7 +31,7 @@ export default function front(state = Map({ isLoading: false, results: OrderedMa
 
             for (const place in places) {
                 if (places.hasOwnProperty(place)) {
-                    if (places[place].hasOwnProperty(action.item)) {
+                    if (places[place]['votes'].hasOwnProperty(action.item)) {
                         response.push(places[place]);
                     }
                 }
@@ -42,7 +42,7 @@ export default function front(state = Map({ isLoading: false, results: OrderedMa
                     .set('isLoading', false)
                     .set('item', fromJS(action.item))
                     .setIn(['results', action.item], Map(response.map((val) => [val.id, fromJS(val)])))
-                    .updateIn(['results', action.item], (s) => s.sortBy((p) => p.get(action.item)).reverse());
+                    .updateIn(['results', action.item], (s) => s.sortBy((p) => p.getIn(['votes', action.item])).reverse());
             });
         case SEARCH_ITEMS_FAILURE:
             return state.set('isLoading', false).set('error', action.error);
@@ -69,7 +69,7 @@ export default function front(state = Map({ isLoading: false, results: OrderedMa
                 newState
                     .set('isLoading', false)
                     .setIn(['results', item, place.id],  Map(fromJS(place)))
-                    .updateIn(['results', item], (s) => s.sortBy((p) => p.get(item)).reverse());
+                    .updateIn(['results', item], (s) => s.sortBy((p) => p.getIn(['votes', item])).reverse());
             });
         case ADD_PLACE_FAILURE:
             return state.set('isLoading', false).set('error', action.error);

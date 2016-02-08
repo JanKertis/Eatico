@@ -19,6 +19,8 @@ class AddPlaceForm extends Component {
             selectedFood: '',
             selectedVenue: '',
             selectedAddress: '',
+            selectedLat: '',
+            selectedLng: '',
             error: false
         };
     }
@@ -44,7 +46,9 @@ class AddPlaceForm extends Component {
         const data = {
             item: this.state.selectedFood.label,
             place: this.state.selectedVenue.label,
-            address: this.state.selectedAddress
+            address: this.state.selectedAddress,
+            lat: this.state.selectedLat,
+            lng: this.state.selectedLng
         };
 
         this.props.addPlace(data);
@@ -57,7 +61,12 @@ class AddPlaceForm extends Component {
     }
 
     onVenueChange(value) {
-        this.setState({ selectedVenue: value, selectedAddress: value.address });
+        this.setState({
+            selectedVenue: value,
+            selectedAddress: value.address,
+            selectedLat: value.lat,
+            selectedLng: value.lng
+        });
     }
 
     handleAddress(e) {
@@ -87,7 +96,13 @@ class AddPlaceForm extends Component {
             this.props.searchVenues(input);
 
             this.props.venues.toArray().map((venue, i) => {
-                options.push({ value: `${i}`+venue.get('name'), label: venue.get('name'), address: venue.get('location').get('address') });
+                options.push({
+                    value: `${i}`+venue.get('name'),
+                    label: venue.get('name'),
+                    address: venue.get('location').get('address') || venue.get('location').get('country'),
+                    lat: venue.get('location').get('lat'),
+                    lng: venue.get('location').get('lng')
+                });
             });
 
             var data = {

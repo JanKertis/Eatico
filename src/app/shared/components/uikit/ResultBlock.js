@@ -3,21 +3,27 @@
  * @copyright Ján Kertis, 2016
  */
 
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import styles from './ResultBlock.css';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { openModal } from './../../actions';
 
-export default class ResultsBlock extends React.Component {
+export default class ResultsBlock extends Component {
+    openModal(venue) {
+        this.props.openModal('venuesModal', venue);
+    }
+
     render() {
         return (
             <div>
                 { this.props.results && this.props.results.toArray().map((result, i) => {
                      return (
-                        <div className={styles.resultRow} key={ i }>
-                            <span className={styles.resultVotes}>{ result.get(this.props.item) }</span>
+                        <div className={styles.resultRow} title={ result.get('place') } onClick={ this.openModal.bind(this, result) } key={ i }>
+                            <span className={styles.resultVotes}>{ result.getIn(['votes', this.props.item, 'votes']) }</span>
                             <div className={styles.resultInfo}>
-                                <span className={styles.resultPlace} title={ result.get('place') }>{ result.get('place') }</span>
-                                <span className={styles.resultStreet} title={ result.get('address') }>{ result.get('address') }</span>
+                                <span className={styles.resultPlace}>{ result.get('place') }</span>
+                                <span className={styles.resultStreet}>{ result.get('address') }</span>
                             </div>
                         </div>
                     );
@@ -30,11 +36,18 @@ export default class ResultsBlock extends React.Component {
     }
 }
 
+ResultsBlock.propTypes = {
+    results: PropTypes.object
+};
+
 export default connect(
     (state) => {
         return {
             results: state.front.getIn(['results', state.front.get('item')]),
             item: state.front.get('item')
         };
+    },
+    (dispatch) => {
+        return bindActionCreators({ openModal }, dispatch);
     }
 )(ResultsBlock);

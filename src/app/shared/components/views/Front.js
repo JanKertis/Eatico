@@ -7,6 +7,7 @@ import React, { Component, PropTypes } from 'react';
 import styles from './Front.css';
 import { Button, ResultBlock, RightNav } from './../uikit';
 import classNames from 'classnames';
+import { ModalBlock } from './../modals';
 import { searchItems, searchFood } from './../../actions';
 import ReactSelectStyles from './ReactSelect.less';
 import { connect } from 'react-redux';
@@ -79,6 +80,7 @@ class Front extends Component {
 
         return (
             <div className={ styles.appBody }>
+                <ModalBlock />
                 <div ref={ (nav) => this._nav = nav }>
                     <RightNav active={ this.state.showNav } onClose={ this.toggleNav.bind(this) } />
                 </div>

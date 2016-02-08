@@ -21,30 +21,46 @@ export default function addPlace(data) {
     return {
         types: [ADD_PLACE_REQUEST, ADD_PLACE_SUCCESS, ADD_PLACE_FAILURE],
         promise: new Promise((resolve) => {
-            let votes;
+            try {
+                let votes;
+                let countVotes;
 
-            placeRef.child(slugify(data.item)).transaction((currentRank) => {
-                votes = currentRank + 1;
-            });
+                placeRef.child('votes').transaction((currentRank) => {
+                    votes = currentRank || { };
+                });
 
-            const place = {
-                id: slugify(data.place),
-                place: data.place,
-                slug: slugify(data.place),
-                address: data.address,
-                [slugify(data.item)]: votes
-            };
+                placeRef.child('votes').child(slugify(data.item)).child('votes').transaction((currentRank) => {
+                    countVotes = currentRank + 1;
+                });
 
-            const food = {
-                id: slugify(data.item),
-                item: data.item,
-                slug: slugify(data.item)
-            };
+                votes[slugify(data.item)] = { item: data.item, votes: countVotes };
 
-            foodRef.child(slugify(data.item)).update(food);
-            placeRef.update(place);
+                const place = {
+                    id: slugify(data.place),
+                    place: data.place,
+                    slug: slugify(data.place),
+                    address: data.address,
+                    lat: data.lat,
+                    lng: data.lng,
+                    votes: votes
+                };
 
-            resolve({ body: { place, item: slugify(data.item) } });
+                const food = {
+                    id: slugify(data.item),
+                    item: data.item,
+                    slug: slugify(data.item)
+                };
+
+                foodRef.child(slugify(data.item)).update(food);
+                placeRef.update(place);
+
+                resolve({ body: { place, item: slugify(data.item) } });
+            }
+            catch(e) {
+                console.log(e);
+                throw e;
+            }
+
         })
     }
 }

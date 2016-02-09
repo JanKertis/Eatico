@@ -8,6 +8,7 @@ import styles from './ResultBlock.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { openModal } from './../../actions';
+import classNames from 'classnames';
 
 export default class ResultsBlock extends Component {
     openModal(venue) {
@@ -20,7 +21,9 @@ export default class ResultsBlock extends Component {
                 { this.props.results && this.props.results.toArray().map((result, i) => {
                      return (
                         <div className={styles.resultRow} title={ result.get('place') } onClick={ this.openModal.bind(this, result) } key={ i }>
-                            <span className={styles.resultVotes}>{ result.getIn(['votes', this.props.item, 'votes']) }</span>
+                            <span className={ classNames(styles.resultVotes, i === 0 && styles.first) }>
+                                { result.getIn(['votes', this.props.item, 'votes']) }
+                            </span>
                             <div className={styles.resultInfo}>
                                 <span className={styles.resultPlace}>{ result.get('place') }</span>
                                 <span className={styles.resultStreet}>{ result.get('address') }</span>

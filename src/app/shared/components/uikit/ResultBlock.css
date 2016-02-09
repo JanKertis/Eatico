@@ -19,7 +19,7 @@
 }
 
 .resultRow:hover {
-    background-color: #F9F8ED;
+    background-color: #fefdf2;
 }
 
 .resultVotes {
@@ -27,11 +27,17 @@
     width: 30px;
     height: 40px;
     border-radius: 5px;
-    background-color: #73AA69;
-    color: #fff;
+    color: #73AA69;
+    font-weight: 600;
+    font-size: 20px;
     float: left;
     text-align: center;
     line-height: 40px;
+}
+
+.resultVotes.first {
+    background-color: #73AA69;
+    color: #fff;
 }
 
 .resultInfo {

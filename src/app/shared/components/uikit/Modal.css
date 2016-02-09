@@ -38,5 +38,42 @@
     margin: 80px auto;
     background-color: #fff;
     border-radius: 5px;
-    padding: 20px;
+    position: relative;
+}
+
+.modalBody {
+    padding: 30px;
+}
+
+.modalBody h3, h4 {
+    color: #000;
+    margin: 0;
+}
+
+.modalBody h4 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ccc;
+}
+
+.modalBody address {
+    font-style: normal;
+    color: #666;
+}
+
+.modalCloseButton {
+    position: absolute;
+    padding: 0;
+    top: 20px;
+    right: 20px;
+    width: 20px;
+    height: 20px;
+    border: 0;
+    background: transparent;
+    opacity: 0.8;
+}
+
+.modalCloseButton:hover {
+    opacity: 1;
 }

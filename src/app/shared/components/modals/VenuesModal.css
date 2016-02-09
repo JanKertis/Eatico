@@ -1,0 +1,17 @@
+/**
+ * @author Ján Kertis <kertis.jan.15@gmail.com>
+ * @copyright Ján Kertis, 2016
+ */
+
+.votesBlock {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.votesRow {
+    margin: 5px 0;
+}
+
+.active {
+    color: #73AA69;
+}

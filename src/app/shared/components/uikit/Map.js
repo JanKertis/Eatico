@@ -23,12 +23,15 @@ export default class Map extends Component {
                 hostname={"maps.googleapis.com"}
                 pathname={"/maps/api/js"}
                 query={{v: `3`, libraries: "geometry,drawing,places"}}
-                loadingElement={ <div> Loading </div> }
-                containerElement={ <div {...this.props} style={{ height: "300px", width: "100%" }} /> }
+                loadingElement={ <div style={{ height: "300px", width: "100%" }}></div> }
+                containerElement={ <div {...this.props} style={{ height: "300px", width: "100%" }}></div> }
                 googleMapElement={
                     <GoogleMap
                         defaultZoom={ 16 }
-                        defaultCenter={{ lat: marker.position.lat, lng: marker.position.lng }}>
+                        defaultCenter={{ lat: marker.position.lat, lng: marker.position.lng }}
+                        defaultOptions={{
+                          scrollwheel: false
+                        }} >
                         <Marker {...marker} />
                     </GoogleMap>
                 }

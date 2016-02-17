@@ -20,7 +20,7 @@ export default class ResultsBlock extends Component {
             <div>
                 { this.props.results && this.props.results.toArray().map((result, i) => {
                      return (
-                        <div className={styles.resultRow} title={ result.get('place') } onClick={ this.openModal.bind(this, result) } key={ i }>
+                        <div className={styles.resultRow} title={ result.get('place') } onClick={ this.openModal.bind(this, result) } key={ result.get('place') }>
                             <span className={ classNames(styles.resultVotes, i === 0 && styles.first) }>
                                 { result.getIn(['votes', this.props.item, 'votes']) }
                             </span>

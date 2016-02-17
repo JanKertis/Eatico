@@ -15,7 +15,10 @@ import {
     SEARCH_FOOD_FAILURE,
     ADD_PLACE_REQUEST,
     ADD_PLACE_SUCCESS,
-    ADD_PLACE_FAILURE
+    ADD_PLACE_FAILURE,
+    VOTE_UP_REQUEST,
+    VOTE_UP_SUCCESS,
+    VOTE_UP_FAILURE
 } from './../constants/actionTypes';
 import { Map, OrderedMap, fromJS } from 'immutable';
 
@@ -42,7 +45,7 @@ export default function front(state = Map({ isLoading: false, results: OrderedMa
                     .set('isLoading', false)
                     .set('item', fromJS(action.item))
                     .setIn(['results', action.item], Map(response.map((val) => [val.id, fromJS(val)])))
-                    .updateIn(['results', action.item], (s) => s.sortBy((p) => p.getIn(['votes', action.item])).reverse());
+                    .updateIn(['results', action.item], (s) => s.sortBy((p) => p.getIn(['votes', action.item, 'votes'])).reverse());
             });
         case SEARCH_ITEMS_FAILURE:
             return state.set('isLoading', false).set('error', action.error);
@@ -62,16 +65,31 @@ export default function front(state = Map({ isLoading: false, results: OrderedMa
             return state.set('foodIsLoading', false).set('error', action.error);
         case ADD_PLACE_REQUEST:
             return state.set('isLoading', true);
-        case ADD_PLACE_SUCCESS:
+        case ADD_PLACE_SUCCESS: {
             const place = action.result.body.place;
             const item = action.result.body.item;
             return state.withMutations((newState) => {
                 newState
                     .set('isLoading', false)
                     .setIn(['results', item, place.id],  Map(fromJS(place)))
-                    .updateIn(['results', item], (s) => s.sortBy((p) => p.getIn(['votes', item])).reverse());
+                    .updateIn(['results', item], (s) => s.sortBy((p) => p.getIn(['votes', item, 'votes'])).reverse());
             });
+        }
         case ADD_PLACE_FAILURE:
+            return state.set('isLoading', false).set('error', action.error);
+        case VOTE_UP_REQUEST:
+            return state.set('isLoading', true);
+        case VOTE_UP_SUCCESS: {
+            const place = action.result.body.place;
+            const item = action.result.body.item;
+            return state.withMutations((newState) => {
+                newState
+                    .set('isLoading', false)
+                    .setIn(['results', item, place, 'votes', item, 'votes'], state.getIn(['results', item, place, 'votes', item, 'votes']) + 1)
+                    .updateIn(['results', item], (s) => s.sortBy((p) => p.getIn(['votes', item, 'votes'])).reverse());
+            });
+        }
+        case VOTE_UP_FAILURE:
             return state.set('isLoading', false).set('error', action.error);
         default:
             return state;

@@ -4,10 +4,12 @@
  */
 
 import React, { Component, PropTypes } from 'react';
-import styles from './Front.css';
-import { Button, ResultBlock, RightNav } from './../uikit';
+import styles from './Main.css';
+import { Button, RightNav } from './../uikit';
+import { ResultBlock } from './';
 import classNames from 'classnames';
 import { ModalBlock } from './../modals';
+import { AddPlaceForm } from './../forms';
 import { searchItems, searchFood } from './../../actions';
 import ReactSelectStyles from './ReactSelect.less';
 import { connect } from 'react-redux';
@@ -82,7 +84,9 @@ class Front extends Component {
             <div className={ styles.appBody }>
                 <ModalBlock />
                 <div ref={ (nav) => this._nav = nav }>
-                    <RightNav active={ this.state.showNav } onClose={ this.toggleNav.bind(this) } />
+                    <RightNav active={ this.state.showNav } onClose={ this.toggleNav.bind(this) }>
+                        <AddPlaceForm />
+                    </RightNav>
                 </div>
                 <div className={ classNames(styles.topWrapper, this.state.active ? styles.activeWrapper : null) }>
                     <div className={ styles.textCenter }>

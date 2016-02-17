@@ -4,7 +4,7 @@
  */
 
 import { App } from './components';
-import { Front } from './components/views';
+import { Main } from './components/views';
 
 /**
  * Creates on enter handler which dispatches action created by given action creator (or creators if multiple params)
@@ -33,7 +33,7 @@ function onEnterHandler(actionCreator) {
 const AppRoutes = [
     {
         path: '',
-        component: Front
+        component: Main
     }
 ];
 

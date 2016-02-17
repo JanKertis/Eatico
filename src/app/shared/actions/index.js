@@ -9,3 +9,4 @@ export { default as searchFood } from './searchFood';
 export { default as addPlace } from './addPlace';
 export { default as openModal } from './openModal';
 export { default as closeModal } from './closeModal';
+export { default as voteUp } from './voteUp';

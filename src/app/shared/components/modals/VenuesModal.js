@@ -5,10 +5,12 @@
 
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Modal, Map } from './../uikit';
 import classNames from 'classnames';
 import styles from './VenuesModal.css';
 import { slugify } from './../../helpers';
+import { voteUp } from './../../actions';
 
 export default class VenuesModal extends Component {
     getKey(item) {
@@ -19,6 +21,10 @@ export default class VenuesModal extends Component {
         } else {
             return 'hlasov';
         }
+    }
+
+    voteUp(place, item) {
+        this.props.voteUp(place, item);
     }
 
     render() {
@@ -32,7 +38,10 @@ export default class VenuesModal extends Component {
                         <div className={ styles.votesBlock }>
                             { this.props.data.get('votes').toArray().map((item, i) => {
                                 return (
-                                    <div className={ classNames(styles.votesRow, this.props.item === slugify(item.get('item')) && styles.active) } key={ i }>{ item.get('item') }: { item.get('votes') } { this.getKey(item.get('votes')) } </div>
+                                    <div className={ classNames(styles.votesRow, this.props.item === slugify(item.get('item')) && styles.active) } key={ i }>
+                                        { item.get('item') }: { item.get('votes') } { this.getKey(item.get('votes')) }
+                                        <button onClick={ this.voteUp.bind(this, this.props.data.get('id'), item.get('item')) }>Hlasovat</button>
+                                    </div>
                                 )
                             }) }
                         </div>
@@ -54,5 +63,8 @@ export default connect(
             data: state.app.getIn(['data', 'venuesModal']),
             item: state.front.get('item')
         };
+    },
+    (dispatch) => {
+        return bindActionCreators({ voteUp }, dispatch);
     }
 )(VenuesModal);

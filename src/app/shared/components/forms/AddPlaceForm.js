@@ -51,7 +51,15 @@ class AddPlaceForm extends Component {
             lng: this.state.selectedLng
         };
 
-        this.props.addPlace(data);
+        this.props.addPlace(data).then(
+            this.context.addNotification({
+                title: 'Ďakujeme za Váš názor',
+                message: `Váš hlas za TOP ${ data.item } bol pripísaný reštaurácií ${ data.place }`,
+                autoDismiss: 10,
+                level: 'info'
+            })
+        );
+
         this.resetForm();
     }
 
@@ -158,6 +166,10 @@ class AddPlaceForm extends Component {
         );
     }
 }
+
+AddPlaceForm.contextTypes = {
+    addNotification: PropTypes.func.isRequired
+};
 
 AddPlaceForm.propTypes = {
     venues: PropTypes.object,

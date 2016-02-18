@@ -24,13 +24,14 @@ export default class VenuesModal extends Component {
     }
 
     voteUp(place, section, item) {
-        this.props.voteUp(place, section, item);
-        this.context.addNotification({
-            title: 'Ďakujeme za Váš názor',
-            message: `Váš hlas za TOP ${ this.props.results.get(this.props.item).get(this.props.venue).get('votes').get(slugify(item)).get('item') } bol pripísaný reštaurácií ${ this.props.results.get(this.props.item).get(this.props.venue).get('place') }`,
-            autoDismiss: 10,
-            level: 'info'
-        });
+        this.props.voteUp(place, section, item).then(
+            this.context.addNotification({
+                title: 'Ďakujeme za Váš názor',
+                message: `Váš hlas za TOP ${ this.props.results.get(this.props.item).get(this.props.venue).get('votes').get(slugify(item)).get('item') } bol pripísaný reštaurácií ${ this.props.results.get(this.props.item).get(this.props.venue).get('place') }`,
+                autoDismiss: 10,
+                level: 'info'
+            })
+        );
     }
 
     render() {

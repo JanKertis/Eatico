@@ -3,32 +3,22 @@
  * @copyright Ján Kertis, 2016
  */
 
-import { Map, OrderedMap, fromJS } from 'immutable';
 import {
-    VOTE_UP_REQUEST,
-    VOTE_UP_SUCCESS,
-    VOTE_UP_FAILURE
+    OPEN_MODAL,
+    CLOSE_MODAL
 } from './../constants/actionTypes';
+import { Map, OrderedMap, fromJS } from 'immutable';
 
-export default function front(state = Map({ venuesModal: false }), action) {
+const initialState = Map({
+    venuesModal: false
+});
+
+export default function app(state = initialState, action) {
     switch (action.type) {
-        case 'OPEN_MODAL':
-            return state.set(action.modal, true).setIn(['data', action.modal], action.data);
-        case 'CLOSE_MODAL':
+        case OPEN_MODAL:
+            return state.set(action.modal, true).setIn(['data', action.modal], action.venue);
+        case CLOSE_MODAL:
             return state.set(action.modal, false);
-        case VOTE_UP_REQUEST:
-            return state.set('isLoading', true);
-        case VOTE_UP_SUCCESS: {
-            const place = action.result.body.place;
-            const item = action.result.body.item;
-            return state.withMutations((newState) => {
-                newState
-                    .set('isLoading', false)
-                    .setIn(['data', 'venuesModal', 'votes', item, 'votes'], state.getIn(['data', 'venuesModal', 'votes', item, 'votes']) + 1);
-            });
-        }
-        case VOTE_UP_FAILURE:
-            return state.set('isLoading', false).set('error', action.error);
         default:
             return state;
     }

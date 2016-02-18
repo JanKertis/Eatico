@@ -15,3 +15,20 @@
 .active {
     color: #73AA69;
 }
+
+.voteButton {
+    margin-left: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.voteButton:hover {
+    border: 1px solid #73AA69;
+    background-color: #fff;
+}
+
+.voteButton:active {
+    border: 1px solid #73AA69;
+    background-color: #73AA69;
+    color: #fff;
+}

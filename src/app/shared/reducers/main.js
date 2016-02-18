@@ -22,8 +22,21 @@ import {
 } from './../constants/actionTypes';
 import { Map, OrderedMap, fromJS } from 'immutable';
 
-export default function front(state = Map({ isLoading: false, results: OrderedMap(), venues: OrderedMap(), food: OrderedMap(), error: null }), action) {
+const initialState = Map({
+    isLoading: false,
+    results: OrderedMap(),
+    venues: OrderedMap(),
+    venuesModal: false,
+    food: OrderedMap(),
+    error: null
+});
+
+export default function main(state = initialState, action) {
     switch (action.type) {
+        case 'OPEN_MODAL':
+            return state.set(action.modal, true).setIn(['data', action.modal], action.venue);
+        case 'CLOSE_MODAL':
+            return state.set(action.modal, false);
         case SEARCH_ITEMS_REQUEST:
             return state.set('isLoading', true);
         case SEARCH_ITEMS_SUCCESS:
@@ -81,13 +94,13 @@ export default function front(state = Map({ isLoading: false, results: OrderedMa
             return state.set('isLoading', true);
         case VOTE_UP_SUCCESS: {
             const place = action.result.body.place;
+            const section = action.result.body.section;
             const item = action.result.body.item;
-            return state.withMutations((newState) => {
-                newState
+
+            return state
                     .set('isLoading', false)
-                    .setIn(['results', item, place, 'votes', item, 'votes'], state.getIn(['results', item, place, 'votes', item, 'votes']) + 1)
-                    .updateIn(['results', item], (s) => s.sortBy((p) => p.getIn(['votes', item, 'votes'])).reverse());
-            });
+                    .setIn(['results', section, place, 'votes', item, 'votes'], state.getIn(['results', section, place, 'votes', item, 'votes']) + 1)
+                    .updateIn(['results', section], (s) => s.sortBy((p) => p.getIn(['votes', section, 'votes'])).reverse());
         }
         case VOTE_UP_FAILURE:
             return state.set('isLoading', false).set('error', action.error);

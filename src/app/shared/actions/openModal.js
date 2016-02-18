@@ -2,15 +2,14 @@
  * @author Ján Kertis <kertis.jan.15@gmail.com>
  * @copyright Ján Kertis, 2016
  */
-import { SEARCH_FOOD_REQUEST, SEARCH_FOOD_SUCCESS, SEARCH_FOOD_FAILURE } from './../constants/actionTypes';
-import { getFirebaseRef, slugify } from './../helpers';
+import { OPEN_MODAL } from './../constants/actionTypes';
 
 /**
  * Open modal action
  */
-export default function openModal(modal, data) {
+export default function openModal(modal, venue) {
     return {
-        type: 'OPEN_MODAL',
-        modal, data
+        type: OPEN_MODAL,
+        modal, venue
     }
 }

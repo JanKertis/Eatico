@@ -17,12 +17,12 @@ export default class Modal extends Component {
     componentDidMount() {
         this.clickHandler = this.clickHandler.bind(this);
         window.addEventListener('click', this.clickHandler, true);
-        document.documentElement.className = styles.modalOpen;
+        document.body.className = styles.modalOpen;
     }
 
     componentWillUnmount() {
         window.removeEventListener('click', this.clickHandler, true);
-        document.documentElement.className = '';
+        document.body.className = '';
     }
 
     clickHandler(e) {

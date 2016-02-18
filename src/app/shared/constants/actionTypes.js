@@ -3,6 +3,9 @@
  * @copyright Ján Kertis, 2016
  */
 
+export const OPEN_MODAL = 'OPEN_MODAL';
+export const CLOSE_MODAL = 'CLOSE_MODAL';
+
 export const SEARCH_ITEMS_REQUEST = 'SEARCH_ITEMS_REQUEST';
 export const SEARCH_ITEMS_SUCCESS = 'SEARCH_ITEMS_SUCCESS';
 export const SEARCH_ITEMS_FAILURE = 'SEARCH_ITEMS_FAILURE';

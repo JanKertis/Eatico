@@ -23,29 +23,36 @@ export default class VenuesModal extends Component {
         }
     }
 
-    voteUp(place, item) {
-        this.props.voteUp(place, item);
+    voteUp(place, section, item) {
+        this.props.voteUp(place, section, item);
     }
 
     render() {
+        const place = this.props.results.get(this.props.item).get(this.props.venue);
+
         return (
             <Modal onClose={ this.props.onClose }>
                 <div>
-                    <h3 title={ this.props.data.get('place') }>{ this.props.data.get('place') }</h3>
-                    <address title={ this.props.data.get('address') }>{ this.props.data.get('address') }</address>
+                    <h3 title={ place.get('place') }>{ place.get('place') }</h3>
+                    <address title={ place.get('address') }>{ place.get('address') }</address>
                     <div>
                         <h4>Hodnotenia</h4>
                         <div className={ styles.votesBlock }>
-                            { this.props.data.get('votes').toArray().map((item, i) => {
+                            { place.get('votes').toArray().map((item, i) => {
                                 return (
                                     <div className={ classNames(styles.votesRow, this.props.item === slugify(item.get('item')) && styles.active) } key={ i }>
                                         { item.get('item') }: { item.get('votes') } { this.getKey(item.get('votes')) }
-                                        <button onClick={ this.voteUp.bind(this, this.props.data.get('id'), item.get('item')) }>Hlasovat</button>
+                                        <button
+                                            className={ styles.voteButton }
+                                            onClick={ this.voteUp.bind(this, place.get('id'), this.props.item, item.get('item')) }
+                                            title={ `Hlasovať za položku ${ item.get('item') } v podniku ${ place.get('place') }` }>
+                                            Hlasovať
+                                        </button>
                                     </div>
                                 )
                             }) }
                         </div>
-                        <Map key={ this.props.data.get('place') } lat={ this.props.data.get('lat') } lng={ this.props.data.get('lng') } />
+                        <Map key={ place.get('place') } lat={ place.get('lat') } lng={ place.get('lng') } />
                     </div>
                 </div>
             </Modal>
@@ -60,8 +67,9 @@ VenuesModal.propTypes = {
 export default connect(
     (state) => {
         return {
-            data: state.app.getIn(['data', 'venuesModal']),
-            item: state.front.get('item')
+            venue: state.app.getIn(['data', 'venuesModal']),
+            results: state.main.get('results'),
+            item: state.main.get('item')
         };
     },
     (dispatch) => {

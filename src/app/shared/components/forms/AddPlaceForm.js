@@ -167,8 +167,8 @@ AddPlaceForm.propTypes = {
 export default connect(
     (state) => {
         return {
-            venues: state.front.get('venues'),
-            food: state.front.get('food')
+            venues: state.main.get('venues'),
+            food: state.main.get('food')
         };
     },
     (dispatch) => {

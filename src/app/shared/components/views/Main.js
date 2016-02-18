@@ -131,8 +131,8 @@ Front.propTypes = {
 export default connect(
     (state) => {
         return {
-            food: state.front.get('food'),
-            isLoading: state.front.get('isLoading')
+            food: state.main.get('food'),
+            isLoading: state.main.get('isLoading')
         };
     },
     (dispatch) => {

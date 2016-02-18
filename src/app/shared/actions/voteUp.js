@@ -9,10 +9,12 @@ import { getFirebaseRef, slugify } from './../helpers';
 /**
  * add new place action
  *
- * @param {Object} data
+ * @param {String} place
+ * @param {String} section
+ * @param {String} item
  * @returns {{types: *[], promise: Request}}
  */
-export default function voteUp(place, item) {
+export default function voteUp(place, section, item) {
     const firebase = getFirebaseRef();
     const placeRef = firebase.child('place').child(slugify(place));
 
@@ -31,7 +33,7 @@ export default function voteUp(place, item) {
                     return currentRank + 1;
                 });
 
-                resolve({ body: { place, item: slugify(item) } });
+                resolve({ body: { place, section: slugify(section), item: slugify(item) } });
             }
             catch(e) {
                 console.log(e);

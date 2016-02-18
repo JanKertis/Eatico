@@ -33,7 +33,7 @@ ModalBlock.propTypes = {
 export default connect(
     (state) => {
         return {
-            venuesModal: state.app.get('venuesModal')
+            venuesModal: state.main.get('venuesModal')
         };
     },
     (dispatch) => {

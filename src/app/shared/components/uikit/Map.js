@@ -26,14 +26,14 @@ export default class Map extends Component {
                 loadingElement={ <div style={{ height: "300px", width: "100%" }}></div> }
                 containerElement={ <div {...this.props} style={{ height: "300px", width: "100%" }}></div> }
                 googleMapElement={
-                    <GoogleMap
-                        defaultZoom={ 16 }
-                        defaultCenter={{ lat: marker.position.lat, lng: marker.position.lng }}
-                        defaultOptions={{
-                          scrollwheel: false
-                        }} >
-                        <Marker {...marker} />
-                    </GoogleMap>
+                        <GoogleMap
+                            defaultZoom={ 16 }
+                            defaultCenter={{ lat: marker.position.lat, lng: marker.position.lng }}
+                            defaultOptions={{
+                              scrollwheel: false
+                            }} >
+                            <Marker {...marker} />
+                        </GoogleMap>
                 }
             />
         );

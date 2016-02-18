@@ -13,6 +13,7 @@
     height: 40px;
     font-size: 16px;
     display: inline-block;
+    transition: all 0.2s ease;
 }
 
 .button:hover {

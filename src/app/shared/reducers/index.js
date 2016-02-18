@@ -4,4 +4,4 @@
  */
 
 export { default as app } from './app';
-export { default as front } from './front';
+export { default as main } from './main';

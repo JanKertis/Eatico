@@ -26,7 +26,9 @@
 
 .resultVotes {
     margin: 15px;
-    width: 30px;
+    width: auto;
+    min-width: 30px;
+    padding: 0 5px;
     height: 40px;
     border-radius: 5px;
     color: #73AA69;
@@ -64,9 +66,9 @@
     border: 2px solid transparent;
     position: absolute;
     right: 20px;
-    top: 21px;
+    top: 18px;
     background: transparent;
-    color: #a1a1a1;
+    color: #666;
     border-radius: 3px;
     font-size: 15px;
     line-height: 30px;

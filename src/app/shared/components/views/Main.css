@@ -7,6 +7,10 @@
     overflow: hidden;
 }
 
+h4 {
+    color: #000 !important;
+}
+
 .topWrapper {
     background: url(../../../../../public/img/main-bg.jpg);
     height: 100vh;

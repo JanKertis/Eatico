@@ -15,15 +15,28 @@ import ReactSelectStyles from './ReactSelect.less';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Select from 'react-select';
+import NotificationSystem from 'react-notification-system';
 
-class Front extends Component {
-    constructor(props) {
-        super(props);
+class Main extends Component {
+    constructor(props, context) {
+        super(props, context);
         this.state = {
             active: false,
             showNav: false,
             selectedFood: ''
-        }
+        };
+
+        this.addNotification = this.addNotification.bind(this);
+    }
+
+    getChildContext() {
+        return {
+            addNotification: this.addNotification
+        };
+    }
+
+    addNotification(notification) {
+        this.refs.notificationSystem.addNotification(notification);
     }
 
     componentDidMount() {
@@ -80,6 +93,15 @@ class Front extends Component {
             }, 300);
         };
 
+        var style = {
+            NotificationItem: {
+                info: {
+                    color: '#666',
+                    borderTop: '5px solid #73AA69'
+                }
+            }
+        };
+
         return (
             <div className={ styles.appBody }>
                 <ModalBlock />
@@ -116,12 +138,17 @@ class Front extends Component {
                         <ResultBlock />
                     </div>
                 </div>
+                <NotificationSystem ref="notificationSystem" style={ style } />
             </div>
         );
     }
 }
 
-Front.propTypes = {
+Main.childContextTypes = {
+    addNotification: PropTypes.func.isRequired
+};
+
+Main.propTypes = {
     searchItems: PropTypes.func.isRequired,
     searchFood: PropTypes.func.isRequired,
     food: PropTypes.object,
@@ -138,4 +165,4 @@ export default connect(
     (dispatch) => {
         return bindActionCreators({ searchItems, searchFood }, dispatch);
     }
-)(Front);
+)(Main);

@@ -19,6 +19,12 @@ export default class ResultsBlock extends Component {
 
     voteUp(place, item) {
         this.props.voteUp(place, item, item);
+        this.context.addNotification({
+            title: 'Ďakujeme za Váš názor',
+            message: `Váš hlas za TOP ${ this.props.results.get(place).get('votes').get(item).get('item') } bol pripísaný reštaurácií ${this.props.results.get(place).get('place')}`,
+            autoDismiss: 10,
+            level: 'info'
+        });
     }
 
     render() {
@@ -50,6 +56,10 @@ export default class ResultsBlock extends Component {
         );
     }
 }
+
+ResultsBlock.contextTypes = {
+    addNotification: PropTypes.func.isRequired
+};
 
 ResultsBlock.propTypes = {
     results: PropTypes.object

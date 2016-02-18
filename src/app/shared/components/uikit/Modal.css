@@ -14,7 +14,7 @@
     left: 0;
     width: 100%;
     height: 100vh;
-    z-index: 9999;
+    z-index: 9997;
     border-radius: 20px;
     -webkit-overflow-scrolling: touch;
 }
@@ -26,6 +26,10 @@
     z-index: 999;
     background-color: rgba(0,0,0,0.6);
     overflow-y: scroll;
+}
+
+.modalBg::-webkit-scrollbar {
+    display: none;
 }
 
 .innerBox {
@@ -70,28 +74,11 @@
     width: 20px;
     height: 20px;
     border: 0;
+    transition: all 0.2s ease;
     background: transparent;
     opacity: 0.8;
 }
 
 .modalCloseButton:hover {
     opacity: 1;
-}
-
-.example-enter {
-    opacity: 0.01;
-    transition: opacity .5s ease-in;
-}
-
-.example-enter.example-enter-active {
-    opacity: 1;
-}
-
-.example-leave {
-    opacity: 1;
-    transition: opacity .5s ease-in;
-}
-
-.example-leave.example-leave-active {
-    opacity: 0.01;
 }

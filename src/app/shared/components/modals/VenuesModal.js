@@ -59,7 +59,7 @@ export default class VenuesModal extends Component {
                                 )
                             }) }
                         </div>
-                        <Map key={ place.get('place') } lat={ place.get('lat') } lng={ place.get('lng') } />
+                        <Map key={ place.get('id') } lat={ place.get('lat') } lng={ place.get('lng') } />
                     </div>
                 </div>
             </Modal>

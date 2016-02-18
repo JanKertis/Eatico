@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { closeModal } from './../../actions';
 import { VenuesModal } from './';
-import { VelocityTransitionGroup } from 'velocity-react';
 
 export default class ModalBlock extends Component {
     closeModal() {
@@ -18,9 +17,7 @@ export default class ModalBlock extends Component {
     render() {
         return (
             <div>
-                <VelocityTransitionGroup enter={{animation: "fadeIn", duration: 100}} leave={{ animation: "fadeOut", duration: 100 }}>
-                    { this.props.venuesModal && <VenuesModal onClose={ this.closeModal.bind(this) } /> }
-                </VelocityTransitionGroup>
+                { this.props.venuesModal ? <div><VenuesModal onClose={ this.closeModal.bind(this) } /></div> : undefined }
             </div>
         );
     }

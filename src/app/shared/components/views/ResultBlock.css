@@ -5,6 +5,7 @@
 
 .resultRow {
     width: 100%;
+    padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
     position: relative;
@@ -21,35 +22,14 @@
 }
 
 .resultRow:hover {
-    background-color: #fefdf2;
-}
-
-.resultVotes {
-    margin: 15px;
-    width: auto;
-    min-width: 30px;
-    padding: 0 5px;
-    height: 40px;
-    border-radius: 5px;
-    color: #73AA69;
-    font-weight: 400;
-    font-size: 20px;
-    float: left;
-    text-align: center;
-    line-height: 40px;
-}
-
-.resultVotes.first {
-    background-color: #73AA69;
-    color: #fff;
+    background-color: #e2e2e2;
 }
 
 .resultInfo {
+    display: inline-block;
     max-width: calc(100% - 70px);
-    margin-top: 11px;
     vertical-align: middle;
-    padding-left: 10px;
-    float: left;
+    padding-left: 20px;
 }
 
 .resultPlace {
@@ -60,35 +40,6 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-}
-
-.voteButton {
-    border: 2px solid transparent;
-    position: absolute;
-    right: 20px;
-    top: 18px;
-    background: transparent;
-    color: #666;
-    border-radius: 3px;
-    font-size: 15px;
-    line-height: 30px;
-    text-align: center;
-    transition: transform 0.2s ease;
-    visibility: hidden;
-    padding: 0 5px;
-    cursor: pointer;
-}
-
-.voteButton:hover {
-    transform: scale(1.4);
-}
-
-.voteButton:active {
-    transform: scale(1.6);
-}
-
-.resultRow:hover .voteButton {
-    visibility: visible;
 }
 
 .resultStreet {

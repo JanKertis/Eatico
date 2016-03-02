@@ -37,12 +37,12 @@
 }
 
 .modalBox {
-    width: 95%;
-    max-width: 600px;
-    margin: 80px auto;
+    width: 350px;
+    height: 100vh;
     background-color: #fff;
-    border-radius: 5px;
-    position: relative;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 .modalBody {
@@ -55,9 +55,9 @@
 }
 
 .modalBody h4 {
-    margin-top: 20px;
+    margin-top: 40px;
     margin-bottom: 10px;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
     border-bottom: 1px solid #ccc;
 }
 

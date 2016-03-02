@@ -7,21 +7,11 @@ import React, { Component, PropTypes } from 'react';
 import styles from './Modal.css';
 
 export default class Modal extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-
-        }
-    }
-
     componentDidMount() {
-        this.clickHandler = this.clickHandler.bind(this);
-        window.addEventListener('click', this.clickHandler, true);
         document.body.className = styles.modalOpen;
     }
 
     componentWillUnmount() {
-        window.removeEventListener('click', this.clickHandler, true);
         document.body.className = '';
     }
 
@@ -34,7 +24,7 @@ export default class Modal extends Component {
     render() {
         return (
             <div className={ styles.modal }>
-                <div className={ styles.modalBg }>
+                <div className={ styles.modalBg } onClick={ this.clickHandler.bind(this) }>
                     <div className={ styles.innerBox }>
                         <div className={ styles.modalBox } ref={ (modal) => this._modal = modal }>
                             <div className={ styles.modalBody }>

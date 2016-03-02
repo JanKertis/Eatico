@@ -1,0 +1,37 @@
+.resultVotes {
+    width: auto;
+    min-width: 30px;
+    padding: 0 5px;
+    height: 40px;
+    border-radius: 5px;
+    color: #73AA69;
+    font-weight: 400;
+    font-size: 20px;
+    display: inline-block;
+    text-align: center;
+    line-height: 40px;
+    position: relative;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.resultVotes.first {
+    background-color: #73AA69;
+    color: #fff;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.counter {
+    position: absolute;
+    text-align: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    margin: auto;
+}
+

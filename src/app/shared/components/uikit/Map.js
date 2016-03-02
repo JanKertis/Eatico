@@ -22,8 +22,8 @@ export default class Map extends Component {
                 hostname={ "maps.googleapis.com" }
                 pathname={ "/maps/api/js" }
                 query={{ v: `3.exp` }}
-                loadingElement={ <div style={{ height: "300px", width: "100%" }}></div> }
-                containerElement={ <div {...this.props} style={{ height: "300px", width: "100%" }}></div> }
+                loadingElement={ <div style={{ height: "200px", width: "100%", marginTop: "30px" }}></div> }
+                containerElement={ <div {...this.props} style={{ height: "200px", width: "100%", marginTop: "30px" }}></div> }
                 googleMapElement={
                         <GoogleMap
                             defaultZoom={ 16 }

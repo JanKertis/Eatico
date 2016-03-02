@@ -3,32 +3,28 @@
  * @copyright Ján Kertis, 2016
  */
 
-.votesBlock {
-    margin-bottom: 20px;
-    color: #666;
+.resultRow {
+    width: 100%;
+    margin-top: 20px;
 }
 
-.votesRow {
-    margin: 5px 0;
-}
-
-.active {
-    color: #73AA69;
-}
-
-.voteButton {
-    margin-left: 10px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-}
-
-.voteButton:hover {
-    border: 1px solid #73AA69;
-    background-color: #fff;
-}
-
-.voteButton:active {
-    border: 1px solid #73AA69;
+.resultVotes {
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
     background-color: #73AA69;
     color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    position: relative;
+}
+
+.resultInfo {
+    display: inline-block;
+    padding-left: 15px;
+    font-weight: 400;
+}
+
+.hidden {
+    visibility: hidden;
 }

@@ -7,3 +7,4 @@ export { default as Button } from './Button';
 export { default as RightNav } from './RightNav';
 export { default as Modal } from './Modal';
 export { default as Map } from './Map';
+export { default as VoteBox } from './VoteBox';

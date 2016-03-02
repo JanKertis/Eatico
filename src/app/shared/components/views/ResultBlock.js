@@ -7,6 +7,7 @@ import React, { Component, PropTypes } from 'react';
 import styles from './ResultBlock.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { VoteBox } from './../uikit';
 import { openModal, voteUp } from './../../actions';
 import classNames from 'classnames';
 
@@ -34,18 +35,14 @@ export default class ResultsBlock extends Component {
                 { this.props.results && this.props.results.toArray().map((result, i) => {
                      return (
                         <div className={styles.resultRow} title={ result.get('place') } onClick={ (e) => this.openModal(e, result.get('id')) } key={ i }>
-                            <span className={ classNames(styles.resultVotes, i === 0 && styles.first) }>
+                            <VoteBox
+                                onClick={ this.voteUp.bind(this, result.get('id'), this.props.item) }
+                                title={ `Hlasovať za položku ${ this.props.item } v podniku ${ result.get('place') }` }>
                                 { result.getIn(['votes', this.props.item, 'votes']) }
-                            </span>
+                            </VoteBox>
                             <div className={styles.resultInfo}>
                                 <span className={styles.resultPlace}>{ result.get('place') }</span>
                                 <span className={styles.resultStreet}>{ result.get('address') }</span>
-                                <button
-                                    className={ styles.voteButton }
-                                    onClick={ this.voteUp.bind(this, result.get('id'), this.props.item) }
-                                    title={ `Hlasovať za položku ${ this.props.item } v podniku ${ result.get('place') }` }>
-                                    +1
-                                </button>
                             </div>
                         </div>
                     );

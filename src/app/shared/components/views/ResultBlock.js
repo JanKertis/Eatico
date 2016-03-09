@@ -9,11 +9,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { VoteBox } from './../uikit';
 import { openModal, voteUp } from './../../actions';
-import classNames from 'classnames';
 
 export default class ResultsBlock extends Component {
     openModal(e, venue) {
-        if (!(e.target.tagName === 'BUTTON')) {
+        if (e.target.className.indexOf('VoteBox') < 0) {
             this.props.openModal('venuesModal', venue);
         }
     }

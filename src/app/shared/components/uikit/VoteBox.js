@@ -19,7 +19,7 @@ export default class VoteBox extends Component {
     render() {
         return (
             <span
-                className={ classNames(styles.resultVotes, styles.first) }
+                className={ classNames(styles.resultVotes, styles.first, 'voteBox') }
                 onMouseEnter={ this.hoverHandler.bind(this) }
                 onMouseLeave={ this.hoverReset.bind(this) }
                 onClick={ this.props.onClick }

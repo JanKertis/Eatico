@@ -12,13 +12,17 @@ import { bindActionCreators } from 'redux';
 export default class RightNav extends React.Component {
     render() {
         return (
-            <div className={ classNames(styles.rightNav, this.props.active ? styles.active : null) }>
-                { this.props.children }
+            <div>
+                <div className={ classNames(styles.navBg, this.props.active && styles.activeBg) } onClick={ this.props.active && this.props.onClose }></div>
+                <div className={ classNames(styles.rightNav, this.props.active ? styles.active : null) }>
+                    { this.props.children }
+                </div>
             </div>
         );
     }
 }
 
 RightNav.propTypes = {
-    active: PropTypes.bool
+    active: PropTypes.bool,
+    onClose: PropTypes.func.isRequired
 };

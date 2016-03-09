@@ -11,6 +11,5 @@ import Firebase from 'firebase';
  * @returns {Object}
  */
 export default function getFirebaseRef() {
-    const firebase = new Firebase("https://eatico.firebaseio.com/");
-    return firebase;
+    return new Firebase("https://eatico.firebaseio.com/");
 }
